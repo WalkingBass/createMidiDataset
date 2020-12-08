@@ -3,12 +3,11 @@
 """
 Things to do
     DONE create .json file with annotation data
-    TODO add variation on the instruments
-    TODO add variation in the soundfont
+    TODO make sure the midi_files and wav_files folders exist, if not create them.
+    TODO add trailing silence
+    TODO add variation on the instruments / soundfont
     TODO add more chords
     TODO add inversions
-    TODO add trailing silence
-    TODO make sure the midi_files and wav_files folders exist, if not create them.
 
 Issues detected:
     # Does not work because midi_to_audio does not pass -T to fluidsynth
