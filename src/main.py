@@ -8,18 +8,18 @@ Things to do
     TODO add variation on the instruments / soundfont
     TODO add more chords
     TODO add inversions
+    TODO refactor main into functions in MidiFiles.
 
 Issues detected:
     # Initialize FluidSynth
+    # from midi2audio import FluidSynth
+    # from fluidsynth import *
     # fs = FluidSynth(sound_font=soundfont, sample_rate=22050)
     # Does not work because midi_to_audio does not pass -T to fluidsynth
     fs.midi_to_audio(midi_file_path, wav_file_path)
     # Does not work because -T is not specified??
     subprocess.call(['fluidsynth', '-F', wav_file_path, '-ni', soundfont, midi_file_path])
 """
-
-# from midi2audio import FluidSynth
-# from fluidsynth import *
 
 from src.MidiFiles import *
 from random import *
