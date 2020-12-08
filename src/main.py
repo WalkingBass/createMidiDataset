@@ -3,13 +3,15 @@
 """
 Things to do
     DONE create .json file with annotation data
-    TODO make sure the midi_files and wav_files folders exist, if not create them.
+    DONE make sure the midi_files and wav_files folders exist, if not create them.
     TODO add trailing silence
     TODO add variation on the instruments / soundfont
     TODO add more chords
     TODO add inversions
 
 Issues detected:
+    # Initialize FluidSynth
+    # fs = FluidSynth(sound_font=soundfont, sample_rate=22050)
     # Does not work because midi_to_audio does not pass -T to fluidsynth
     fs.midi_to_audio(midi_file_path, wav_file_path)
     # Does not work because -T is not specified??
@@ -18,16 +20,23 @@ Issues detected:
 
 # from midi2audio import FluidSynth
 # from fluidsynth import *
+
 from src.MidiFiles import *
 from random import *
 from math import *
+import os
 import subprocess
 import src.constants as ct
 import json
 
-# Initialize FluidSynth
-soundfont = './util/sound_fonts/FluidR3_GM.sf2'
-# fs = FluidSynth(sound_font=soundfont, sample_rate=22050)
+# validate essential files/folders exist
+if not os.path.exists(ct.soundfont):
+    message = 'Default sound font file ({}) not found. Program stopped.'.format(ct.soundfont)
+    raise Exception(message.format(ct.soundfont))
+if not os.path.exists(ct.midi_folder_path):
+    os.makedirs(ct.midi_folder_path)
+if not os.path.exists(ct.wav_folder_path):
+    os.makedirs(ct.wav_folder_path)
 
 # here we will create the midi files for all chords with variations on volume and timing.
 data = {}
@@ -50,7 +59,7 @@ for value in range(ct.NoteRange):
             """ Create midi object, write midi and convert/write wav """
             my_file = ChordFile(0, 120, pitch, chord, duration, volume, start_beat, 0, 'none', 0)
             my_file.write_file(midi_file_path)
-            subprocess.call(['fluidsynth', '-T', 'wav', '-F', wav_file_path, '-ni', soundfont, midi_file_path])
+            subprocess.call(['fluidsynth', '-T', 'wav', '-F', wav_file_path, '-ni', ct.soundfont, midi_file_path])
             """ Create data dict for that file """
             chord_data = {"chord_name": chord_name, "pitch": pitch, "chord_form": chord,
                           "third": ct.Chords_Thirds[chord_name], "fifth": ct.Chords_Fifths[chord_name],

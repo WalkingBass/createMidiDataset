@@ -8,6 +8,7 @@ VolumeRange = MaxVolume - MinVolume
 MaxStartBeat = 3
 BeatTolerance = 0.1
 # paths
+soundfont = './util/sound_fonts/FluidR3_GM.sf2'
 midi_folder_path = "./data/midi_files/"
 wav_folder_path = "./data/wav_files/"
 # Chords qualities:
